@@ -59,4 +59,17 @@ fun main(){
     }else{
         println("$playerName получает $monsterAttack урона! \n Осталось $currentHealth здоровья")
     }
+
+    // Зелье здоровья
+    val healthPotion: Int = 30
+    println("\n >>> $playerName находит зелье здоровья! <<<")
+    println("$playerName решает его выпить")
+
+    currentHealth += healthPotion
+    if (currentHealth > maxHealth) {
+        currentHealth = maxHealth
+    }
+
+    println("$playerName принял дозу, и у него стало $currentHealth / $maxHealth здоровья")
+
 }
