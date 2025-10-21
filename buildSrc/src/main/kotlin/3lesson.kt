@@ -94,6 +94,15 @@ class Item(val id:String, val name: String, val description: String, var cost: I
         player.shield = true
         println("${player.name} picked up the shield.")
     }
+
+    fun shield(player: Character){
+        if (player.shield) {
+            println("${player.name} already has an active shield!")
+        } else {
+            player.shield = true
+            println("${player.name} picked up the shield.")
+        }
+    }
 }
 fun main(){
     println("=== CREATE GAME CHARACTERS FROM CLASSES ===")
@@ -134,7 +143,3 @@ fun main(){
     val manaPotion = Item("mana_potion", "Mana Potion", "Recover 10 mana", 25)
     val shield = Item("shield", "Shield", "Defend damage", 60)
 }
-
-// 1. создайте новое свойство у вашего Character (которе будет отвечать за ману игрока)
-// 2. добавить метод fireBall который наносит цели 25 урона и тратит у игрока 5 маны
-// 3. при испольозовании метода fireBall должна быть проверка на то хватает ли количества маны для использования
