@@ -11,6 +11,8 @@ class Character{
     var mana: Int = 20
     var attack: Int = 15
     var isAlive: Boolean = true
+    var shield: Boolean = false
+    val maxMana: Int = 20
 
     // МЕТОДЫ КЛАССА - описывают "поведение" класса
     // етодами описывается что может сделать объект или как с ним можно взаимодействовать
@@ -20,6 +22,15 @@ class Character{
 
     fun takeDamage(damage: Int){
         // -= health = health - damage
+        if (shield){
+            health -= (damage/2)
+            println("$name take ${damage/2} damage! HP: $health")
+            shield = false
+        }else{
+            health -= damage
+            println("$name take $damage damage! HP: $health")
+        }
+        
         health -= damage
         println("$name take $damage damage! HP: $health")
 
@@ -46,12 +57,10 @@ class Character{
             println("$name is dead and cant cast Fireball")
             return
         }
-
         if (mana < 5) {
             println("$name doesnt have enough mana to cast Fireball. Current mana: $mana")
             return
         }
-
         mana -= 5
         println("$name casts Fireball on ${target.name}, dealing 25 damage! Mana left: $mana")
         target.takeDamage(25)
@@ -70,6 +79,22 @@ class Character{
     }
 }
 
+class Item(val id:String, val name: String, val description: String, var cost: Int){
+    fun effect(player: Character){
+        if (id == "heal_potion"){
+            player.heal(25)
+            println("${player.name} healed 25 HP")
+        }else if(id == "mana_potion"){
+            player.mana += minOf(player.mana + 10, player.maxMana)
+            println("${player.name} recovered 10 mana")
+        }
+    }
+
+    fun shield(player: Character){
+        player.shield = true
+        println("${player.name} picked up the shield.")
+    }
+}
 fun main(){
     println("=== CREATE GAME CHARACTERS FROM CLASSES ===")
 
@@ -103,6 +128,11 @@ fun main(){
 
     println("\n--- Player casts Fireball ---")
     player.fireBall(monster)
+    
+    // создание предметов
+    val healPotion = Item("heal_potion","Heal Potion", "Healing you by 25HP", 50)
+    val manaPotion = Item("mana_potion", "Mana Potion", "Recover 10 mana", 25)
+    val shield = Item("shield", "Shield", "Defend damage", 60)
 }
 
 // 1. создайте новое свойство у вашего Character (которе будет отвечать за ману игрока)
