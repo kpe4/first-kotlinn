@@ -20,6 +20,20 @@ class Character{
     // takeDamage - имя метода
     // (damage: Int) - параметр метода (кол во урона)
 
+    val inventory = mutableListOf<Item>()
+
+    fun useItem(item: Item): Boolean {
+        if (inventory.contains(item)) {
+            item.effect(this)
+            inventory.remove(item)
+            println("${name} used ${item.name} and it was removed from inventory.")
+            return true
+        } else {
+            println("Error: ${item.name} not found in inventory.")
+            return false
+        }
+    }
+
     fun takeDamage(damage: Int){
         // -= health = health - damage
         if (shield){
@@ -142,4 +156,14 @@ fun main(){
     val healPotion = Item("heal_potion","Heal Potion", "Healing you by 25HP", 50)
     val manaPotion = Item("mana_potion", "Mana Potion", "Recover 10 mana", 25)
     val shield = Item("shield", "Shield", "Defend damage", 60)
+
+    player.inventory.add(healPotion)
+    player.inventory.add(manaPotion)
+    player.inventory.add(shield)
+
+    println("\n--- Player uses Heal Potion ---")
+    player.useItem(healPotion)
+
+    println("\n--- Player tries to use Heal Potion again ---")
+    player.useItem(healPotion) // будет ошибка т.к. предмет уже удалён
 }
