@@ -18,21 +18,15 @@ fun calculateExperience(level: Int): Int{
 }
 
 // NUMERO SINCO
-class Weapon(val name: String, val damage: Int){
-    fun displayInfo(){
-        println("$name (Урон: $damage)")
-    }
-}
-
-// ZADANIE 6
-open class Weapon(val name: String, val damage: Int):
-    open fun displayInfo(){
+open class Weapon(val name: String, val damage: Int) {
+    open fun displayInfo() {
         println("$name (урон: $damage)")
     }
 }
 
-class MagicWeapon(name: String, damage: Int, val manaCost: Int): Weapon(name, damage){
-    override fun displayInfo(){
+// ZADANIE 6
+class MagicWeapon(name: String, damage: Int, val manaCost: Int) : Weapon(name, damage) {
+    override fun displayInfo() {
         println("$name (урон: $damage, мана: $manaCost)")
     }
 }
